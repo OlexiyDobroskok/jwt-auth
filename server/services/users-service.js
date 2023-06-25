@@ -28,7 +28,7 @@ exports.registration = async (email, password) => {
 };
 
 exports.activate = async (activationLink) => {
-  const user = User.findOne({activationLink})
+  const user = await User.findOne({activationLink});
   if (!user) {
     throw ApiError.BadRequest('Incorrect activation link')
   }
