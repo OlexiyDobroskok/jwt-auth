@@ -13,13 +13,14 @@ exports.registration = async (email, password) => {
     throw ApiError.ConflictError("Email Address Already in Use");
   }
   const passwordHash = await bcrypt.hash(password, 10);
-  const activationLink = `${API_URL}/api/users/activation/${uuid.v4()}`;
+  const activationLink = uuid.v4();
   const newUser = await User.create({
     email,
     passwordHash,
     activationLink,
   });
-  await sendActivationMail(email, activationLink);
+  const mailActivationLink = `${API_URL}/api/users/activation/${activationLink}`;
+  await sendActivationMail(email, mailActivationLink);
   const userDto = getUserDto(newUser);
   const {accessToken, refreshToken} = generateTokens(userDto);
   await saveToken(userDto.id, refreshToken);
