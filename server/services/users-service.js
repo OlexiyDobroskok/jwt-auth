@@ -32,6 +32,6 @@ exports.activate = async (activationLink) => {
   if (!user) {
     throw ApiError.BadRequest('Incorrect activation link')
   }
-  user.isActivate = true
+  user.isActivated = true;
   await user.save();
 }
