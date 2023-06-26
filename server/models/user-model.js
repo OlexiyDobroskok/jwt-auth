@@ -17,6 +17,7 @@ userSchema.set("toJSON", {
     delete ret._id;
     delete ret.passwordHash;
     delete ret.activationLink;
+    delete ret.__v;
   },
 });
 

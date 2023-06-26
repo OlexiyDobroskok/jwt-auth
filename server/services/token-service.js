@@ -21,3 +21,25 @@ exports.saveToken = async (userId, refreshToken) => {
   }
   return await Token.create({ user: userId, refreshToken });
 };
+
+exports.removeToken = async (refreshToken) => {
+  await Token.deleteOne({ refreshToken });
+};
+
+exports.findRefreshToken = async (refreshToken) =>
+  await Token.findOne({ refreshToken });
+
+exports.validateAccessToken = (token) => {
+  try {
+    return jwt.verify(token, JWT_ACCESS_SECRET);
+  } catch (error) {
+    return null;
+  }
+};
+exports.validateRefreshToken = (token) => {
+  try {
+    return jwt.verify(token, JWT_REFRESH_SECRET);
+  } catch (error) {
+    return null;
+  }
+};
