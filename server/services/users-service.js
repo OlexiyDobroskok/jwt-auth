@@ -13,7 +13,7 @@ const {
 const ApiError = require("../exeptions/api-error");
 const { API_URL } = require("../utils/config");
 
-exports.registration = async (email, password) => {
+exports.registration = async ({ email, password, userName }) => {
   const user = await User.findOne({ email });
   if (user) {
     throw ApiError.ConflictError("email address already in use");
@@ -23,6 +23,7 @@ exports.registration = async (email, password) => {
   const newUser = await User.create({
     email,
     passwordHash,
+    userName,
     activationLink,
   });
   const mailActivationLink = `${API_URL}/api/users/activation/${activationLink}`;

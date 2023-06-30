@@ -13,8 +13,9 @@ const { authorization } = require("../utils/middleware");
 router.get("/", authorization, getUsers);
 router.post(
   "/registration",
+  body("userName").isLength({ min: 4 }),
   body("email").isEmail(),
-  body("password").isLength({ min: 5 }),
+  body("password").isLength({ min: 6 }),
   registration
 );
 router.post("/login", login);

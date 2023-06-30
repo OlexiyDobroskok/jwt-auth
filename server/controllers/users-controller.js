@@ -18,10 +18,9 @@ exports.registration = async (req, res, next) => {
       ApiError.BadRequest("validation error", validationErrors.array())
     );
   }
-  const { email, password } = req.body;
+  const registrationData = req.body;
   const { accessToken, refreshToken, userDto } = await registration(
-    email,
-    password
+    registrationData
   );
   const maxAge = 30 * 24 * 60 * 60;
   res.cookie("refreshToken", refreshToken, {
@@ -31,7 +30,7 @@ exports.registration = async (req, res, next) => {
   return res.status(201).json({ accessToken, userDto });
 };
 
-exports.login = async (req, res, next) => {
+exports.login = async (req, res) => {
   const { email, password } = req.body;
   const { accessToken, refreshToken, userDto } = await login(email, password);
   const maxAge = 30 * 24 * 60 * 60;
