@@ -10,7 +10,7 @@ export const registrationThunk = createAsyncThunk<
   RegistrationRequestBody,
   { dispatch: AppDispatch; rejectValue: ApiException }
 >(
-  "session/registrationThunk",
+  "user/registration",
   async (registrationBody, { dispatch, rejectWithValue }) => {
     try {
       const { userDto, accessToken } = await registration(registrationBody);
