@@ -39,9 +39,9 @@ export const NewPasswordForm = ({ resetCode }: NewPasswordFormProps) => {
       ).unwrap();
       if (successfulMessage) {
         setSuccessfulMessage(successfulMessage.message);
-        reset();
+        reset({}, { keepErrors: true });
         window.setTimeout(() => {
-          navigate(appRoutes.ACCOUNT);
+          navigate(appRoutes.ACCOUNT, { replace: true });
         }, 3000);
       }
     } catch (error) {
@@ -56,9 +56,9 @@ export const NewPasswordForm = ({ resetCode }: NewPasswordFormProps) => {
           message: "server error. try again later",
         });
       }
-      reset();
+      reset({}, { keepErrors: true });
       window.setTimeout(() => {
-        navigate(appRoutes.ROOT);
+        navigate(appRoutes.ROOT, { replace: true });
       }, 3000);
     }
   };
@@ -81,8 +81,9 @@ export const NewPasswordForm = ({ resetCode }: NewPasswordFormProps) => {
         formState={formState}
         register={register}
       />
-      {serverErrorType === "unknown" ||
-        (serverErrorType === "invalid" && <p>{serverErrorMessage}</p>)}
+      {(serverErrorType === "unknown" || serverErrorType === "invalid") && (
+        <p>{serverErrorMessage}</p>
+      )}
       {successfulMessage && <p>{successfulMessage}</p>}
       <button>submit password</button>
     </form>
