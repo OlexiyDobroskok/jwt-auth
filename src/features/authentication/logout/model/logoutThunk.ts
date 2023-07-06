@@ -8,7 +8,7 @@ export const logoutThunk = createAsyncThunk<
   void,
   void,
   { dispatch: AppDispatch; rejectValue: ApiException }
->("user/logoutThunk", async (_, { dispatch, rejectWithValue }) => {
+>("user/logout", async (_, { dispatch, rejectWithValue }) => {
   try {
     await logout();
     dispatch(clearSession());

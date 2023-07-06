@@ -9,7 +9,7 @@ export const loginThunk = createAsyncThunk<
   UserDto,
   LoginRequestBody,
   { dispatch: AppDispatch; rejectValue: ApiException }
->("session/loginThunk", async (loginBody, { dispatch, rejectWithValue }) => {
+>("session/login", async (loginBody, { dispatch, rejectWithValue }) => {
   try {
     const { userDto, accessToken } = await login(loginBody);
     if (accessToken) {

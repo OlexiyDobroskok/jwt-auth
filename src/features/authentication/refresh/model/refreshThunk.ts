@@ -8,7 +8,7 @@ export const refreshThunk = createAsyncThunk<
   Token,
   void,
   { dispatch: AppDispatch; rejectValue: ApiException }
->("user/refreshThunk", async (_, { dispatch, rejectWithValue }) => {
+>("user/refresh", async (_, { dispatch, rejectWithValue }) => {
   try {
     const { userDto, accessToken } = await refresh();
     if (accessToken) {
