@@ -1,5 +1,5 @@
 import { NavLink } from "react-router-dom";
-import { AppRoutes } from "shared/lib";
+import { appRoutes } from "shared/lib";
 import clsx from "clsx";
 import classes from "./HeaderLayout.module.scss";
 import { useAppSelector } from "shared/model";
@@ -14,21 +14,21 @@ export const HeaderLayout = () => {
       <nav className={classes.navMenu}>
         <NavLink
           className={({ isActive }) => navLinkClassName(isActive)}
-          to={AppRoutes.ROOT}
+          to={appRoutes.ROOT}
         >
           Home
         </NavLink>
         {isAuthorize ? (
           <NavLink
             className={({ isActive }) => navLinkClassName(isActive)}
-            to={AppRoutes.PROFILE}
+            to={appRoutes.PROFILE}
           >
             Profile
           </NavLink>
         ) : (
           <NavLink
             className={({ isActive }) => navLinkClassName(isActive)}
-            to={AppRoutes.ACCOUNT}
+            to={appRoutes.ACCOUNT}
           >
             Account
           </NavLink>

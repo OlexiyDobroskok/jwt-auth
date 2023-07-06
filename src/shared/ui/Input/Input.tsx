@@ -8,10 +8,12 @@ import {
 import clsx from "clsx";
 import classes from "./Input.module.scss";
 
-export const enum InputTheme {
-  row = "row",
-  column = "column",
-}
+export const inputTheme = {
+  row: "row",
+  column: "column",
+} as const;
+
+export type InputTheme = (typeof inputTheme)[keyof typeof inputTheme];
 
 interface InputProps<T extends FieldValues> {
   type: "text" | "password" | "email";
@@ -32,7 +34,7 @@ export const Input = <T extends FieldValues>({
   getFieldState,
   formState,
   className,
-  theme = InputTheme.column,
+  theme = inputTheme.column,
 }: InputProps<T>) => {
   const fieldState = getFieldState(fieldName, formState);
   const isError = fieldState.invalid;
@@ -40,7 +42,7 @@ export const Input = <T extends FieldValues>({
   return (
     <label
       className={clsx(classes.label, className, {
-        [classes.row]: theme === InputTheme.row,
+        [classes.row]: theme === inputTheme.row,
       })}
     >
       {labelText}

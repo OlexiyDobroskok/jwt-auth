@@ -11,7 +11,7 @@ import { useAppDispatch } from "shared/model";
 import { type ApiException } from "shared/api";
 import { useNavigate } from "react-router-dom";
 import { registrationThunk } from "../../model/registrationThunk";
-import { AppRoutes } from "shared/lib";
+import { appRoutes } from "shared/lib";
 
 export const RegistrationForm = () => {
   const {
@@ -41,7 +41,7 @@ export const RegistrationForm = () => {
         registrationThunk({ userName, email, password })
       ).unwrap();
       if (userId) {
-        navigate(AppRoutes.PROFILE);
+        navigate(appRoutes.PROFILE);
       }
     } catch (error) {
       if ((error as ApiException).status === 409) {

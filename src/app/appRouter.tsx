@@ -1,5 +1,5 @@
 import { createBrowserRouter } from "react-router-dom";
-import { AppRoutes } from "shared/lib";
+import { appRoutes } from "shared/lib";
 import { AccountPage } from "pages/account";
 import { rootLayout } from "./rootLayout";
 import { AuthGuard, GuestGuard } from "entities/session";
@@ -9,11 +9,11 @@ import { CreatePasswordPage } from "pages/create-password";
 
 export const appRouter = createBrowserRouter([
   {
-    path: AppRoutes.ROOT,
+    path: appRoutes.ROOT,
     element: rootLayout,
     children: [
       {
-        path: AppRoutes.ACCOUNT,
+        path: appRoutes.ACCOUNT,
         element: (
           <AuthGuard>
             <AccountPage />
@@ -21,7 +21,7 @@ export const appRouter = createBrowserRouter([
         ),
       },
       {
-        path: AppRoutes.PROFILE,
+        path: appRoutes.PROFILE,
         element: (
           <GuestGuard>
             <ProfilePage />
@@ -29,7 +29,7 @@ export const appRouter = createBrowserRouter([
         ),
       },
       {
-        path: AppRoutes.RESET_PASS,
+        path: appRoutes.RESET_PASS,
         element: (
           <AuthGuard>
             <ResetPasswordPage />
@@ -37,7 +37,7 @@ export const appRouter = createBrowserRouter([
         ),
       },
       {
-        path: AppRoutes.CREATE_PASS,
+        path: appRoutes.CREATE_PASS,
         element: (
           <AuthGuard>
             <CreatePasswordPage />

@@ -10,7 +10,7 @@ import { useAppDispatch } from "shared/model";
 import { loginThunk } from "../model/loginThunk.ts";
 import { useNavigate } from "react-router-dom";
 import { type ApiException } from "shared/api";
-import { AppRoutes } from "shared/lib";
+import { appRoutes } from "shared/lib";
 
 export const LoginForm = () => {
   const {
@@ -33,7 +33,7 @@ export const LoginForm = () => {
     try {
       const { id } = await dispatch(loginThunk(loginData)).unwrap();
       if (id) {
-        navigate(AppRoutes.PROFILE);
+        navigate(appRoutes.PROFILE);
       }
     } catch (error) {
       if ((error as ApiException).status === 401) {
