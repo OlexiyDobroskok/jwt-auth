@@ -23,12 +23,12 @@ export const ResetPasswordForm = () => {
   const serverErrorType = formState.errors.root?.serverError.type;
   const serverErrorMessage = formState.errors.root?.serverError.message;
 
-  const onSubmit: SubmitHandler<ResetPasswordFormSchema> = async ({
-    email,
-  }) => {
+  const onSubmit: SubmitHandler<ResetPasswordFormSchema> = async (
+    resetData
+  ) => {
     try {
       const successfulMessage = await dispatch(
-        resetPasswordThunk(email)
+        resetPasswordThunk(resetData)
       ).unwrap();
       if (successfulMessage) {
         setSuccessfulMessage(successfulMessage.message);

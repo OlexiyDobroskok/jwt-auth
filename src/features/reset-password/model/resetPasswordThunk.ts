@@ -5,14 +5,15 @@ import {
   handleApiError,
 } from "shared/api";
 import { resetPassword } from "../api/endpoints";
+import { type ResetPasswordBody } from "../api/types";
 
 export const resetPasswordThunk = createAsyncThunk<
   ApiResponseMessage,
-  Email,
+  ResetPasswordBody,
   { rejectValue: ApiException }
->("user/resetPassword", async (email, { rejectWithValue }) => {
+>("user/resetPassword", async (resetData, { rejectWithValue }) => {
   try {
-    return await resetPassword(email);
+    return await resetPassword(resetData);
   } catch (error) {
     return rejectWithValue(handleApiError(error));
   }
