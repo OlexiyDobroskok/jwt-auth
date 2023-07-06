@@ -10,6 +10,8 @@ import {
   type NewPasswordFormSchema,
 } from "../model/newPasswordFormSchema";
 import { createNewPasswordThunk } from "../model/createNewPasswordThunk";
+import { useNavigate } from "react-router-dom";
+import { appRoutes } from "shared/lib";
 
 interface NewPasswordFormProps {
   resetCode: string;
@@ -17,13 +19,14 @@ interface NewPasswordFormProps {
 
 export const NewPasswordForm = ({ resetCode }: NewPasswordFormProps) => {
   const [successfulMessage, setSuccessfulMessage] = useState("");
-  const { getFieldState, register, handleSubmit, setError, reset, formState } =
+  const { getFieldState, register, reset, handleSubmit, setError, formState } =
     useForm<NewPasswordFormSchema>({
       defaultValues,
       mode: "onTouched",
       resolver: zodResolver(newPasswordFormSchema),
     });
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
   const serverErrorType = formState.errors.root?.serverError.type;
   const serverErrorMessage = formState.errors.root?.serverError.message;
 
@@ -37,11 +40,14 @@ export const NewPasswordForm = ({ resetCode }: NewPasswordFormProps) => {
       if (successfulMessage) {
         setSuccessfulMessage(successfulMessage.message);
         reset();
+        window.setTimeout(() => {
+          navigate(appRoutes.ACCOUNT);
+        }, 3000);
       }
     } catch (error) {
-      if ((error as ApiException).status === 401) {
+      if ((error as ApiException).status === 400) {
         setError("root.serverError", {
-          type: "unauthorized",
+          type: "invalid",
           message: (error as ApiException).error,
         });
       } else {
@@ -51,6 +57,9 @@ export const NewPasswordForm = ({ resetCode }: NewPasswordFormProps) => {
         });
       }
       reset();
+      window.setTimeout(() => {
+        navigate(appRoutes.ROOT);
+      }, 3000);
     }
   };
 
@@ -73,7 +82,7 @@ export const NewPasswordForm = ({ resetCode }: NewPasswordFormProps) => {
         register={register}
       />
       {serverErrorType === "unknown" ||
-        (serverErrorType === "unauthorized" && <p>{serverErrorMessage}</p>)}
+        (serverErrorType === "invalid" && <p>{serverErrorMessage}</p>)}
       {successfulMessage && <p>{successfulMessage}</p>}
       <button>submit password</button>
     </form>
