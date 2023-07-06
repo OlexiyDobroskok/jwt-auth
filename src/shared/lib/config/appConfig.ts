@@ -1,7 +1,7 @@
 import { z } from "zod";
 
 const envVariables = z.object({
-  VITE_SESSION_API_ENDPOINT: z.string().url(),
+  VITE_API_ENDPOINT: z.string().url(),
 });
 
 envVariables.parse(import.meta.env);
@@ -11,5 +11,5 @@ declare global {
 }
 
 export const appConfig = {
-  SESSION_API_ENDPOINT: import.meta.env.VITE_SESSION_API_ENDPOINT,
+  API_ENDPOINT: import.meta.env.VITE_API_ENDPOINT,
 };
