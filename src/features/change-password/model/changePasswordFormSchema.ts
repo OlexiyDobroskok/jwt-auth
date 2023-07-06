@@ -2,6 +2,10 @@ import { z } from "zod";
 
 export const changePasswordFormSchema = z
   .object({
+    password: z
+      .string()
+      .trim()
+      .min(6, { message: "password must be at least 6 characters" }),
     newPassword: z
       .string()
       .trim()
@@ -21,6 +25,7 @@ export const changePasswordFormSchema = z
   );
 
 export const defaultValue: ChangePasswordFormSchema = {
+  password: "",
   newPassword: "",
   confirmNewPassword: "",
 };

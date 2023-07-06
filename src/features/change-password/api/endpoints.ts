@@ -1,10 +1,11 @@
 import { sessionApi } from "entities/session";
-import { type ResetPasswordBody, type ResetPasswordDto } from "./types";
+import { type ChangePasswordBody } from "./types";
+import { type ApiResponseMessage } from "shared/api";
 
-export const reset = async (newPassword: ResetPasswordBody) => {
-  const response = await sessionApi.post<ResetPasswordDto>(
-    "/reset",
-    newPassword
+export const editPass = async (passwords: ChangePasswordBody) => {
+  const response = await sessionApi.post<ApiResponseMessage>(
+    "/password/edit",
+    passwords
   );
   return response.data;
 };

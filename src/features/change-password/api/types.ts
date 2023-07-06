@@ -1,7 +1,4 @@
-export interface ResetPasswordDto {
-  message: Message;
-}
-
-export interface ResetPasswordBody {
+export interface ChangePasswordBody {
+  password: Password;
   newPassword: Password;
 }
