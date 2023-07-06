@@ -1,0 +1,16 @@
+.navMenu {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.9375rem;
+  padding: 0.3125rem 1.25rem;
+
+  .link {
+    font-size: 1.5rem;
+    color: #fff;
+    text-decoration: none;
+  }
+
+  .selected {
+    color: #ffbe18;
+  }
+}
