@@ -1,4 +1,4 @@
-import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
+import { type SubmitHandler, useForm } from "react-hook-form";
 import {
   defaultValues,
   loginFormSchema,
@@ -9,19 +9,26 @@ import { Input } from "shared/ui";
 import { useAppDispatch } from "shared/model";
 import { loginThunk } from "../model/loginThunk.ts";
 import { useNavigate } from "react-router-dom";
-import { ApiException } from "shared/api";
+import { type ApiException } from "shared/api";
 import { AppRoutes } from "shared/lib";
 
 export const LoginForm = () => {
-  const methods = useForm<LoginFormSchema>({
+  const {
+    register,
+    resetField,
+    handleSubmit,
+    formState,
+    setError,
+    getFieldState,
+  } = useForm<LoginFormSchema>({
     defaultValues,
     mode: "onTouched",
     resolver: zodResolver(loginFormSchema),
   });
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const serverErrorType = methods.formState.errors.root?.serverError.type;
-  const serverErrorMessage = methods.formState.errors.root?.serverError.message;
+  const serverErrorType = formState.errors.root?.serverError.type;
+  const serverErrorMessage = formState.errors.root?.serverError.message;
   const onSubmit: SubmitHandler<LoginFormSchema> = async (loginData) => {
     try {
       const { id } = await dispatch(loginThunk(loginData)).unwrap();
@@ -30,30 +37,42 @@ export const LoginForm = () => {
       }
     } catch (error) {
       if ((error as ApiException).status === 401) {
-        methods.setError("root.serverError", {
+        setError("root.serverError", {
           type: "unauthorized",
           message: (error as ApiException).error,
         });
       } else {
-        methods.setError("root.serverError", {
+        setError("root.serverError", {
           type: "unknown",
           message: "server error. try again later",
         });
       }
 
-      methods.resetField("password");
+      resetField("password");
     }
   };
 
   return (
-    <FormProvider {...methods}>
-      <form onSubmit={methods.handleSubmit(onSubmit)}>
-        <Input type="text" name="email" labelText="email" />
-        <Input type="password" name="password" labelText="password" />
-        {serverErrorType === "unknown" ||
-          (serverErrorType === "unauthorized" && <p>{serverErrorMessage}</p>)}
-        <button>submit</button>
-      </form>
-    </FormProvider>
+    <form onSubmit={handleSubmit(onSubmit)}>
+      <Input
+        type="email"
+        fieldName="email"
+        labelText="email"
+        getFieldState={getFieldState}
+        formState={formState}
+        register={register}
+      />
+      <Input
+        type="password"
+        fieldName="password"
+        labelText="password"
+        getFieldState={getFieldState}
+        formState={formState}
+        register={register}
+      />
+      {serverErrorType === "unknown" ||
+        (serverErrorType === "unauthorized" && <p>{serverErrorMessage}</p>)}
+      <button>submit</button>
+    </form>
   );
 };
