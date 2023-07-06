@@ -35,9 +35,9 @@ export const ResetPasswordForm = () => {
         reset();
       }
     } catch (error) {
-      if ((error as ApiException).status === 401) {
+      if ((error as ApiException).status === 400) {
         setError("root.serverError", {
-          type: "unauthorized",
+          type: "invalid",
           message: (error as ApiException).error,
         });
       } else {
@@ -61,7 +61,7 @@ export const ResetPasswordForm = () => {
         register={register}
       />
       {serverErrorType === "unknown" ||
-        (serverErrorType === "unauthorized" && <p>{serverErrorMessage}</p>)}
+        (serverErrorType === "invalid" && <p>{serverErrorMessage}</p>)}
       {successfulMessage && <p>{successfulMessage}</p>}
       <button>submit email</button>
     </form>
