@@ -1,5 +1,10 @@
-import { InputHTMLAttributes } from "react";
-import { useFormContext } from "react-hook-form";
+import {
+  type FieldValues,
+  type FormState,
+  type Path,
+  type UseFormGetFieldState,
+  type UseFormRegister,
+} from "react-hook-form";
 import clsx from "clsx";
 import classes from "./Input.module.scss";
 
@@ -8,22 +13,28 @@ export const enum InputTheme {
   column = "column",
 }
 
-interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
-  name: string;
+interface InputProps<T extends FieldValues> {
+  type: "text" | "password" | "email";
+  fieldName: Path<T>;
   labelText: string;
+  register: UseFormRegister<T>;
+  getFieldState: UseFormGetFieldState<T>;
+  formState: FormState<T>;
+  className?: string;
   theme?: InputTheme;
 }
 
-export const Input = ({
+export const Input = <T extends FieldValues>({
+  type,
   labelText,
-  name,
+  fieldName,
+  register,
+  getFieldState,
+  formState,
   className,
   theme = InputTheme.column,
-  ...props
-}: InputProps) => {
-  const { register, getFieldState, formState } = useFormContext();
-
-  const fieldState = getFieldState(name, formState);
+}: InputProps<T>) => {
+  const fieldState = getFieldState(fieldName, formState);
   const isError = fieldState.invalid;
 
   return (
@@ -35,8 +46,8 @@ export const Input = ({
       {labelText}
       <input
         className={clsx(classes.input, { [classes.invalid]: isError })}
-        {...props}
-        {...register(name)}
+        type={type}
+        {...register(fieldName)}
       />
       {isError && <p>{fieldState.error?.message}</p>}
     </label>
