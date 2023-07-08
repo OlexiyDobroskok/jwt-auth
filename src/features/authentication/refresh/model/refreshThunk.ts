@@ -11,7 +11,7 @@ export const refreshThunk = createAsyncThunk<
   SessionDto,
   void,
   { dispatch: AppDispatch; rejectValue: HttpError }
->("user/refresh", async (_, { dispatch, rejectWithValue }) => {
+>("session/refresh", async (_, { dispatch, rejectWithValue }) => {
   try {
     const response = await userService.refresh();
     const sessionDto = response.data;
