@@ -1,2 +1,2 @@
-export { appConfig } from "./config/appConfig.ts";
-export { type AppRoutes, appRoutes } from "./config/routerConfig.ts";
+export { appConfig } from "./appConfig.ts";
+export { type AppRoutes, appRoutes } from "./routerConfig.ts";
