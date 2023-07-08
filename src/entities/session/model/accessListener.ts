@@ -1,15 +1,17 @@
 import { createListenerMiddleware } from "@reduxjs/toolkit";
+import { AxiosError } from "axios";
+
+import { baseApi } from "shared/api";
 import { type AppStartListening } from "shared/store";
+
+import { refreshThunk } from "./refreshThunk";
 import {
   clearRefreshTimerId,
   clearSession,
   createSession,
   setRefreshTimerId,
 } from "./sessionSlice";
-import { AxiosError } from "axios";
-import { refreshThunk } from "./refreshThunk";
 import { type AccessAxiosRequestConfig } from "./types";
-import { baseApi } from "shared/api";
 
 export const accessListener = createListenerMiddleware();
 

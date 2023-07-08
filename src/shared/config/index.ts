@@ -1,2 +1,2 @@
-export { appRoutes, type AppRoutes } from "./routerConfig";
 export { appConfig } from "./appConfig";
+export { type AppRoutes,appRoutes } from "./routerConfig";

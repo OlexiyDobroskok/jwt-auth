@@ -1,4 +1,5 @@
 import axios from "axios";
+
 import { appConfig } from "../config";
 
 export const baseApi = axios.create({

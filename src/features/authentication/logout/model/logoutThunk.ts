@@ -1,6 +1,7 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
+
 import { clearSession } from "entities/session";
-import { type HttpError, handleHttpError, userService } from "shared/api";
+import { handleHttpError, type HttpError, userService } from "shared/api";
 
 export const logoutThunk = createAsyncThunk<
   void,

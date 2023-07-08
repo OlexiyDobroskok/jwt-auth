@@ -1,17 +1,19 @@
 import { useState } from "react";
 import { type SubmitHandler, useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useAppDispatch } from "shared/store";
+
 import { type HttpError } from "shared/api";
+import { appRoutes } from "shared/config";
+import { useAppDispatch } from "shared/store";
 import { Input } from "shared/ui";
+
 import {
-  defaultValues,
-  createPasswordFormSchema,
   type CreatePasswordFormSchema,
+  createPasswordFormSchema,
+  defaultValues,
 } from "../model/createPasswordFormSchema.ts";
 import { createPasswordThunk } from "../model/createPasswordThunk.ts";
-import { useNavigate } from "react-router-dom";
-import { appRoutes } from "shared/config";
 
 interface CreatePasswordFormProps {
   resetCode: string;

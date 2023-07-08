@@ -1,11 +1,13 @@
 import { createBrowserRouter } from "react-router-dom";
-import { appRoutes } from "shared/config";
-import { AccountPage } from "pages/account";
-import { rootLayout } from "./rootLayout";
+
 import { AuthGuard, GuestGuard } from "entities/session";
+import { AccountPage } from "pages/account";
+import { CreatePasswordPage } from "pages/create-password";
 import { ProfilePage } from "pages/profile";
 import { ResetPasswordPage } from "pages/reset-password";
-import { CreatePasswordPage } from "pages/create-password";
+import { appRoutes } from "shared/config";
+
+import { rootLayout } from "./rootLayout";
 
 export const appRouter = createBrowserRouter([
   {

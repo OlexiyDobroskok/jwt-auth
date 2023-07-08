@@ -1,9 +1,10 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
+
 import {
-  type HttpError,
-  type ResponseMessage,
-  type ResetPasswordRequest,
   handleHttpError,
+  type HttpError,
+  type ResetPasswordRequest,
+  type ResponseMessage,
   userService,
 } from "shared/api";
 

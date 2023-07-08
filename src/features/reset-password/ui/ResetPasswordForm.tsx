@@ -1,13 +1,15 @@
 import { useState } from "react";
 import { type SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useAppDispatch } from "shared/store";
+
 import { type HttpError } from "shared/api";
+import { useAppDispatch } from "shared/store";
 import { Input } from "shared/ui";
+
 import {
   defaultValues,
-  resetPasswordFormSchema,
   type ResetPasswordFormSchema,
+  resetPasswordFormSchema,
 } from "../model/resetPasswordFormSchema";
 import { resetPasswordThunk } from "../model/resetPasswordThunk";
 

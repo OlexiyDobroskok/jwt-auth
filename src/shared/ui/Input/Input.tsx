@@ -6,6 +6,7 @@ import {
   type UseFormRegister,
 } from "react-hook-form";
 import clsx from "clsx";
+
 import classes from "./Input.module.scss";
 
 export const inputTheme = {

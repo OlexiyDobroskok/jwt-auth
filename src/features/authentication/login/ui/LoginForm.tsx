@@ -1,16 +1,18 @@
 import { type SubmitHandler, useForm } from "react-hook-form";
-import {
-  defaultValues,
-  loginFormSchema,
-  type LoginFormSchema,
-} from "../model/loginFormSchema";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { Input } from "shared/ui";
-import { useAppDispatch } from "shared/store";
-import { loginThunk } from "../model/loginThunk";
 import { useNavigate } from "react-router-dom";
+import { zodResolver } from "@hookform/resolvers/zod";
+
 import { type HttpError } from "shared/api";
 import { appRoutes } from "shared/config";
+import { useAppDispatch } from "shared/store";
+import { Input } from "shared/ui";
+
+import {
+  defaultValues,
+  type LoginFormSchema,
+  loginFormSchema,
+} from "../model/loginFormSchema";
+import { loginThunk } from "../model/loginThunk";
 
 export const LoginForm = () => {
   const {

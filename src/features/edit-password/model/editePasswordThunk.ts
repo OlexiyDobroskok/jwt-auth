@@ -1,10 +1,11 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
+
 import {
+  type EditPasswordRequest,
+  handleHttpError,
   type HttpError,
   type ResponseMessage,
-  handleHttpError,
   userService,
-  type EditPasswordRequest,
 } from "shared/api";
 
 export const editePasswordThunk = createAsyncThunk<

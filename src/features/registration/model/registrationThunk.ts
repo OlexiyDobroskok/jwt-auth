@@ -1,12 +1,13 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
+
+import { createSession } from "entities/session";
 import {
-  type HttpError,
   handleHttpError,
+  type HttpError,
   type RegisterUserRequest,
   type SessionDto,
   userService,
 } from "shared/api";
-import { createSession } from "entities/session";
 
 export const registrationThunk = createAsyncThunk<
   SessionDto,

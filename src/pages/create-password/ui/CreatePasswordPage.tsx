@@ -1,5 +1,6 @@
-import { CreatePasswordForm } from "features/create-password";
 import { useParams } from "react-router-dom";
+
+import { CreatePasswordForm } from "features/create-password";
 
 export const CreatePasswordPage = () => {
   const { resetCode } = useParams<{ resetCode?: string }>();

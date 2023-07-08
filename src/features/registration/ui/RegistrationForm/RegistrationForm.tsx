@@ -1,17 +1,20 @@
-import { Input } from "shared/ui";
 import { type SubmitHandler, useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
+import { zodResolver } from "@hookform/resolvers/zod";
+
+import { type HttpError } from "shared/api";
+import { appRoutes } from "shared/config";
+import { useAppDispatch } from "shared/store";
+import { Input } from "shared/ui";
+
 import {
   defaultValues,
-  registrationFormSchema,
   type RegistrationFormSchema,
+  registrationFormSchema,
 } from "../../model/registrationFormSchema";
-import { zodResolver } from "@hookform/resolvers/zod";
-import classes from "./RegistrationForm.module.scss";
-import { useAppDispatch } from "shared/store";
-import { type HttpError } from "shared/api";
-import { useNavigate } from "react-router-dom";
 import { registrationThunk } from "../../model/registrationThunk";
-import { appRoutes } from "shared/config";
+
+import classes from "./RegistrationForm.module.scss";
 
 export const RegistrationForm = () => {
   const {

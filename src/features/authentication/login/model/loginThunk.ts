@@ -1,11 +1,12 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
+
 import { createSession } from "entities/session";
 import {
-  type HttpError,
   handleHttpError,
+  type HttpError,
+  type LoginRequest,
   type SessionDto,
   userService,
-  type LoginRequest,
 } from "shared/api";
 
 export const loginThunk = createAsyncThunk<

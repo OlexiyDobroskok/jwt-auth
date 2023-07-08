@@ -1,4 +1,5 @@
 import { isAxiosError } from "axios";
+
 import { type ResponseError } from "./types";
 
 export interface HttpError {

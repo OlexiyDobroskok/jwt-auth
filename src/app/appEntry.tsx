@@ -1,11 +1,13 @@
 import { StrictMode } from "react";
 import ReactDOM from "react-dom/client";
-import { RouterProvider } from "react-router-dom";
 import { Provider as ReduxProvider } from "react-redux";
+import { RouterProvider } from "react-router-dom";
 import { PersistGate } from "redux-persist/integration/react";
+
+import { refreshThunk } from "entities/session";
+
 import { appRouter } from "./appRouter";
 import { appStore, persistor } from "./appStore";
-import { refreshThunk } from "entities/session";
 
 const initApp = () => {
   persistor.subscribe(() => {

@@ -1,15 +1,17 @@
-import { type SubmitHandler, useForm } from "react-hook-form";
-import {
-  editPasswordFormSchema,
-  type EditPasswordFormSchema,
-  defaultValue,
-} from "../model/editPasswordFormSchema";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useAppDispatch } from "shared/store";
-import { editePasswordThunk } from "../model/editePasswordThunk";
-import { type HttpError } from "shared/api";
 import { useState } from "react";
+import { type SubmitHandler, useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+
+import { type HttpError } from "shared/api";
+import { useAppDispatch } from "shared/store";
 import { Input } from "shared/ui";
+
+import { editePasswordThunk } from "../model/editePasswordThunk";
+import {
+  defaultValue,
+  type EditPasswordFormSchema,
+  editPasswordFormSchema,
+} from "../model/editPasswordFormSchema";
 
 export const ChangePasswordForm = () => {
   const [successfulMessage, setSuccessfulMessage] = useState("");

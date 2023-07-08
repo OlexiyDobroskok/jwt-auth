@@ -1,14 +1,14 @@
 export { baseApi } from "./baseApi";
-export { userService } from "./user-service";
 export { handleHttpError, type HttpError } from "./errors";
 export {
+  type CreatePasswordRequest,
+  type EditPasswordRequest,
+  type LoginRequest,
+  type RegisterUserRequest,
+  type ResetPasswordRequest,
+  type ResponseError,
+  type ResponseMessage,
   type SessionDto,
   type UserDto,
-  type ResponseMessage,
-  type LoginRequest,
-  type EditPasswordRequest,
-  type ResetPasswordRequest,
-  type RegisterUserRequest,
-  type ResponseError,
-  type CreatePasswordRequest,
 } from "./types";
+export { userService } from "./user-service";

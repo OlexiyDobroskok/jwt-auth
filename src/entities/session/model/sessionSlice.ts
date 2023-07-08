@@ -1,4 +1,5 @@
 import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
+
 import { type SessionDto, type UserDto } from "shared/api";
 
 export interface SessionState {

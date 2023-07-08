@@ -1,10 +1,12 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
+
 import {
-  type HttpError,
   handleHttpError,
+  type HttpError,
   type SessionDto,
   userService,
 } from "shared/api";
+
 import { clearSession, createSession } from "./sessionSlice";
 
 export const refreshThunk = createAsyncThunk<

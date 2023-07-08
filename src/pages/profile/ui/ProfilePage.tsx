@@ -1,8 +1,9 @@
-import { useAppSelector } from "shared/store";
-import { datePresentation } from "../lib/datePresentation";
+import { selectUser } from "entities/session";
 import { LogoutButton } from "features/authentication/logout";
 import { ChangePasswordForm } from "features/edit-password";
-import { selectUser } from "entities/session";
+import { useAppSelector } from "shared/store";
+
+import { datePresentation } from "../lib/datePresentation";
 
 export const ProfilePage = () => {
   const user = useAppSelector(selectUser);
