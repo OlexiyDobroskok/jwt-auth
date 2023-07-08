@@ -1,45 +1,45 @@
 import { type SubmitHandler, useForm } from "react-hook-form";
 import {
-  changePasswordFormSchema,
-  type ChangePasswordFormSchema,
+  editPasswordFormSchema,
+  type EditPasswordFormSchema,
   defaultValue,
-} from "../model/changePasswordFormSchema";
+} from "../model/editPasswordFormSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useAppDispatch } from "shared/model";
-import { changePasswordThunk } from "../model/changePasswordThunk.ts";
-import { type ApiException } from "shared/api";
+import { useAppDispatch } from "shared/store";
+import { editePasswordThunk } from "../model/editePasswordThunk";
+import { type HttpError } from "shared/api";
 import { useState } from "react";
 import { Input } from "shared/ui";
 
 export const ChangePasswordForm = () => {
   const [successfulMessage, setSuccessfulMessage] = useState("");
   const { getFieldState, register, handleSubmit, setError, reset, formState } =
-    useForm<ChangePasswordFormSchema>({
+    useForm<EditPasswordFormSchema>({
       defaultValues: defaultValue,
       mode: "onTouched",
-      resolver: zodResolver(changePasswordFormSchema),
+      resolver: zodResolver(editPasswordFormSchema),
     });
   const dispatch = useAppDispatch();
   const serverErrorType = formState.errors.root?.serverError.type;
   const serverErrorMessage = formState.errors.root?.serverError.message;
 
-  const onSubmit: SubmitHandler<ChangePasswordFormSchema> = async ({
+  const onSubmit: SubmitHandler<EditPasswordFormSchema> = async ({
     password,
     newPassword,
   }) => {
     try {
       const successfulMessage = await dispatch(
-        changePasswordThunk({ password, newPassword })
+        editePasswordThunk({ password, newPassword })
       ).unwrap();
       if (successfulMessage) {
         setSuccessfulMessage(successfulMessage.message);
         reset();
       }
     } catch (error) {
-      if ((error as ApiException).status === 401) {
+      if ((error as HttpError).status === 401) {
         setError("root.serverError", {
           type: "unauthorized",
-          message: (error as ApiException).error,
+          message: (error as HttpError).message,
         });
       } else {
         setError("root.serverError", {

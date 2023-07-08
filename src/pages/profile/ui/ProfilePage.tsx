@@ -1,14 +1,12 @@
-import { useAppSelector } from "shared/model";
-import { selectUserInformation } from "entities/user";
-import { datePresentation } from "../lib/datePresentation.ts";
+import { useAppSelector } from "shared/store";
+import { datePresentation } from "../lib/datePresentation";
 import { LogoutButton } from "features/authentication/logout";
-import { ChangePasswordForm } from "features/change-password";
+import { ChangePasswordForm } from "features/edit-password";
+import { selectUser } from "entities/session";
 
 export const ProfilePage = () => {
-  const user = useAppSelector(selectUserInformation);
-  const registrationDate = user
-    ? datePresentation(user.registrationDate)
-    : "unknown";
+  const user = useAppSelector(selectUser);
+  const registrationDate = user ? datePresentation(user.date) : "unknown";
   return (
     <article>
       <h2>Welcome back, {user?.userName}</h2>

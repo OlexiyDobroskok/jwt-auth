@@ -1,29 +1,29 @@
 import { isAxiosError } from "axios";
-import { ResponseError } from "./types.ts";
+import { type ResponseError } from "./types";
 
-export interface ApiException {
-  error: Message;
+export interface HttpError {
+  message: Message;
   status?: StatusCode;
 }
 
-export const handleApiError = (error: unknown): ApiException => {
+export const handleHttpError = (error: unknown): HttpError => {
   if (isAxiosError(error)) {
     const responseError: ResponseError = error.response?.data;
     if (error.response && Object.hasOwn(responseError, "message")) {
       return {
-        error: responseError.message,
+        message: responseError.message,
         status: error.response.status,
       };
     }
-    return { error: error.message };
+    return { message: error.message };
   }
 
   if (error instanceof Error) {
-    return { error: error.message };
+    return { message: error.message };
   }
 
   if (typeof error === "string") {
-    return { error: error };
+    return { message: error };
   }
-  return { error: "unknown error" };
+  return { message: "unknown error" };
 };

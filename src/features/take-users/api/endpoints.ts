@@ -1,6 +1,6 @@
-import { sessionApi, type UserDto } from "entities/session";
+import { baseApi, type UserDto } from "shared/api";
 
 export const getUsers = async () => {
-  const res = await sessionApi.get<UserDto[]>("/");
+  const res = await baseApi.get<UserDto[]>("/");
   return res.data;
 };

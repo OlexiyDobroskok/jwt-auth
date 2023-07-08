@@ -1,12 +1,10 @@
 import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
-import { sessionApi } from "../api/sessionApi";
+import { type SessionDto, type UserDto } from "shared/api";
 
 export interface SessionState {
   isAuthorize: boolean;
+  user?: UserDto;
   accessToken?: Token;
-  userId?: Id;
-  isActivated?: boolean;
-  reqAccessInterceptorId?: number;
 }
 
 const initialState: SessionState = {
@@ -17,31 +15,21 @@ export const sessionSlice = createSlice({
   name: "session",
   initialState,
   reducers: {
-    createSession: (
-      state,
-      {
-        payload,
-      }: PayloadAction<{ userId: Id; accessToken: Token; isActivated: boolean }>
-    ) => {
-      state.userId = payload.userId;
+    createSession: (state, { payload }: PayloadAction<SessionDto>) => {
+      state.user = payload.userDto;
       state.accessToken = payload.accessToken;
-      state.isActivated = payload.isActivated;
       state.isAuthorize = true;
     },
     clearSession: (state) => {
-      state.userId = undefined;
+      state.user = undefined;
       state.accessToken = undefined;
-      state.isActivated = undefined;
       state.isAuthorize = false;
-      if (state.reqAccessInterceptorId) {
-        sessionApi.interceptors.request.clear();
-      }
-      state.reqAccessInterceptorId = undefined;
     },
   },
 });
 
 export const selectIsAuthorized = (state: RootState) =>
   state.session.isAuthorize;
+export const selectUser = (state: RootState) => state.session.user;
 
 export const { createSession, clearSession } = sessionSlice.actions;

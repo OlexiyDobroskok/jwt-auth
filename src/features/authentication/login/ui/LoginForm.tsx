@@ -6,11 +6,11 @@ import {
 } from "../model/loginFormSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Input } from "shared/ui";
-import { useAppDispatch } from "shared/model";
-import { loginThunk } from "../model/loginThunk.ts";
+import { useAppDispatch } from "shared/store";
+import { loginThunk } from "../model/loginThunk";
 import { useNavigate } from "react-router-dom";
-import { type ApiException } from "shared/api";
-import { appRoutes } from "shared/lib";
+import { type HttpError } from "shared/api";
+import { appRoutes } from "shared/config";
 
 export const LoginForm = () => {
   const {
@@ -31,15 +31,13 @@ export const LoginForm = () => {
   const serverErrorMessage = formState.errors.root?.serverError.message;
   const onSubmit: SubmitHandler<LoginFormSchema> = async (loginData) => {
     try {
-      const { id } = await dispatch(loginThunk(loginData)).unwrap();
-      if (id) {
-        navigate(appRoutes.PROFILE);
-      }
+      await dispatch(loginThunk(loginData)).unwrap();
+      navigate(appRoutes.PROFILE);
     } catch (error) {
-      if ((error as ApiException).status === 401) {
+      if ((error as HttpError).status === 401) {
         setError("root.serverError", {
           type: "unauthorized",
-          message: (error as ApiException).error,
+          message: (error as HttpError).message,
         });
       } else {
         setError("root.serverError", {

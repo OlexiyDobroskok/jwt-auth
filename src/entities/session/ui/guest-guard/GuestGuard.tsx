@@ -1,8 +1,8 @@
 import { ReactNode } from "react";
-import { useAppSelector } from "shared/model";
+import { useAppSelector } from "shared/store";
 import { selectIsAuthorized } from "../../model/sessionSlice";
 import { Navigate } from "react-router-dom";
-import { appRoutes } from "shared/lib";
+import { appRoutes } from "shared/config";
 
 export interface GuestGuardProps {
   children: ReactNode;

@@ -1,54 +1,52 @@
 import { useState } from "react";
 import { type SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useAppDispatch } from "shared/model";
-import { type ApiException } from "shared/api";
+import { useAppDispatch } from "shared/store";
+import { type HttpError } from "shared/api";
 import { Input } from "shared/ui";
 import {
   defaultValues,
-  newPasswordFormSchema,
-  type NewPasswordFormSchema,
-} from "../model/newPasswordFormSchema";
-import { createNewPasswordThunk } from "../model/createNewPasswordThunk";
+  createPasswordFormSchema,
+  type CreatePasswordFormSchema,
+} from "../model/createPasswordFormSchema.ts";
+import { createPasswordThunk } from "../model/createPasswordThunk.ts";
 import { useNavigate } from "react-router-dom";
-import { appRoutes } from "shared/lib";
+import { appRoutes } from "shared/config";
 
-interface NewPasswordFormProps {
+interface CreatePasswordFormProps {
   resetCode: string;
 }
 
-export const NewPasswordForm = ({ resetCode }: NewPasswordFormProps) => {
+export const CreatePasswordForm = ({ resetCode }: CreatePasswordFormProps) => {
   const [successfulMessage, setSuccessfulMessage] = useState("");
   const { getFieldState, register, reset, handleSubmit, setError, formState } =
-    useForm<NewPasswordFormSchema>({
+    useForm<CreatePasswordFormSchema>({
       defaultValues,
       mode: "onTouched",
-      resolver: zodResolver(newPasswordFormSchema),
+      resolver: zodResolver(createPasswordFormSchema),
     });
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const serverErrorType = formState.errors.root?.serverError.type;
   const serverErrorMessage = formState.errors.root?.serverError.message;
 
-  const onSubmit: SubmitHandler<NewPasswordFormSchema> = async ({
+  const onSubmit: SubmitHandler<CreatePasswordFormSchema> = async ({
     newPassword,
   }) => {
     try {
       const successfulMessage = await dispatch(
-        createNewPasswordThunk({ newPassword, resetCode })
+        createPasswordThunk({ newPassword, resetCode })
       ).unwrap();
-      if (successfulMessage) {
-        setSuccessfulMessage(successfulMessage.message);
-        reset({}, { keepErrors: true });
-        window.setTimeout(() => {
-          navigate(appRoutes.ACCOUNT, { replace: true });
-        }, 3000);
-      }
+      setSuccessfulMessage(successfulMessage.message);
+      reset({}, { keepErrors: true });
+      window.setTimeout(() => {
+        navigate(appRoutes.ACCOUNT, { replace: true });
+      }, 3000);
     } catch (error) {
-      if ((error as ApiException).status === 400) {
+      if ((error as HttpError).status === 400) {
         setError("root.serverError", {
           type: "invalid",
-          message: (error as ApiException).error,
+          message: (error as HttpError).message,
         });
       } else {
         setError("root.serverError", {

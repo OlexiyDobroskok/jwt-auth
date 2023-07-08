@@ -1,24 +1,24 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { createSession, type UserDto } from "entities/session";
-import { type ApiException, handleApiError } from "shared/api";
-import { createUser } from "entities/user";
-import { type LoginRequestBody } from "../api/types";
-import { login } from "../api/endpoints";
+import { createSession } from "entities/session";
+import {
+  type HttpError,
+  handleHttpError,
+  type SessionDto,
+  userService,
+  type LoginRequest,
+} from "shared/api";
 
 export const loginThunk = createAsyncThunk<
-  UserDto,
-  LoginRequestBody,
-  { dispatch: AppDispatch; rejectValue: ApiException }
->("session/login", async (loginBody, { dispatch, rejectWithValue }) => {
+  SessionDto,
+  LoginRequest,
+  { dispatch: AppDispatch; rejectValue: HttpError }
+>("session/login", async (loginData, { dispatch, rejectWithValue }) => {
   try {
-    const { userDto, accessToken } = await login(loginBody);
-    if (accessToken) {
-      const { id, userName, email, isActivated, date } = userDto;
-      dispatch(createSession({ userId: id, isActivated, accessToken }));
-      dispatch(createUser({ id, userName, email, registrationDate: date }));
-    }
-    return userDto;
+    const response = await userService.login(loginData);
+    const sessionDto = response.data;
+    dispatch(createSession(sessionDto));
+    return sessionDto;
   } catch (error) {
-    return rejectWithValue(handleApiError(error));
+    return rejectWithValue(handleHttpError(error));
   }
 });

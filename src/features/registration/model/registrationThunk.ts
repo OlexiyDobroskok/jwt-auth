@@ -1,33 +1,24 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { type ApiException, handleApiError } from "shared/api";
-import { createSession, type UserDto } from "entities/session";
-import { createUser } from "entities/user";
-import { type RegistrationRequestBody } from "../api/types.ts";
-import { registration } from "../api/endpoints.ts";
+import {
+  type HttpError,
+  handleHttpError,
+  type RegisterUserRequest,
+  type SessionDto,
+  userService,
+} from "shared/api";
+import { createSession } from "entities/session";
 
 export const registrationThunk = createAsyncThunk<
-  UserDto,
-  RegistrationRequestBody,
-  { dispatch: AppDispatch; rejectValue: ApiException }
->(
-  "user/registration",
-  async (registrationBody, { dispatch, rejectWithValue }) => {
-    try {
-      const { userDto, accessToken } = await registration(registrationBody);
-      if (accessToken) {
-        const { id, isActivated, email, userName, date } = userDto;
-        dispatch(createUser({ id, userName, email, registrationDate: date }));
-        dispatch(
-          createSession({
-            userId: id,
-            isActivated,
-            accessToken,
-          })
-        );
-      }
-      return userDto;
-    } catch (error) {
-      return rejectWithValue(handleApiError(error));
-    }
+  SessionDto,
+  RegisterUserRequest,
+  { dispatch: AppDispatch; rejectValue: HttpError }
+>("session/registration", async (regData, { dispatch, rejectWithValue }) => {
+  try {
+    const response = await userService.registration(regData);
+    const sessionDto = response.data;
+    dispatch(createSession(sessionDto));
+    return sessionDto;
+  } catch (error) {
+    return rejectWithValue(handleHttpError(error));
   }
-);
+});

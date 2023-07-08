@@ -1,5 +1,5 @@
-import { useAppDispatch } from "shared/model";
-import { logoutThunk } from "../model/logoutThunk.ts";
+import { useAppDispatch } from "shared/store";
+import { logoutThunk } from "../model/logoutThunk";
 import { redirect } from "react-router-dom";
 
 export const LogoutButton = () => {

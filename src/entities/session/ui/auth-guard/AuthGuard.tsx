@@ -1,6 +1,6 @@
 import { type ReactNode } from "react";
-import { useAppSelector } from "shared/model";
-import { selectIsAuthorized } from "../../model/sessionSlice.ts";
+import { useAppSelector } from "shared/store";
+import { selectIsAuthorized } from "../../model/sessionSlice";
 import { Navigate } from "react-router-dom";
 
 export interface AuthGuardProps {

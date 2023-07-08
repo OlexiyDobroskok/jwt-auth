@@ -1,5 +1,5 @@
 import { createBrowserRouter } from "react-router-dom";
-import { appRoutes } from "shared/lib";
+import { appRoutes } from "shared/config";
 import { AccountPage } from "pages/account";
 import { rootLayout } from "./rootLayout";
 import { AuthGuard, GuestGuard } from "entities/session";

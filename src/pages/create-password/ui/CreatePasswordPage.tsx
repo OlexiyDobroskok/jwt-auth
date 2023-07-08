@@ -1,4 +1,4 @@
-import { NewPasswordForm } from "features/create-new-password";
+import { CreatePasswordForm } from "features/create-password";
 import { useParams } from "react-router-dom";
 
 export const CreatePasswordPage = () => {
@@ -10,7 +10,7 @@ export const CreatePasswordPage = () => {
 
   return (
     <div>
-      <NewPasswordForm resetCode={resetCode} />
+      <CreatePasswordForm resetCode={resetCode} />
     </div>
   );
 };

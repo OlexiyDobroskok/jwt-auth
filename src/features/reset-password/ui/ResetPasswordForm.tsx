@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { type SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useAppDispatch } from "shared/model";
-import { type ApiException } from "shared/api";
+import { useAppDispatch } from "shared/store";
+import { type HttpError } from "shared/api";
 import { Input } from "shared/ui";
 import {
   defaultValues,
@@ -30,15 +30,13 @@ export const ResetPasswordForm = () => {
       const successfulMessage = await dispatch(
         resetPasswordThunk(resetData)
       ).unwrap();
-      if (successfulMessage) {
-        setSuccessfulMessage(successfulMessage.message);
-        reset();
-      }
+      setSuccessfulMessage(successfulMessage.message);
+      reset();
     } catch (error) {
-      if ((error as ApiException).status === 400) {
+      if ((error as HttpError).status === 400) {
         setError("root.serverError", {
           type: "invalid",
-          message: (error as ApiException).error,
+          message: (error as HttpError).message,
         });
       } else {
         setError("root.serverError", {

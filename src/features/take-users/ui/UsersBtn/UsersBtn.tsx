@@ -1,4 +1,4 @@
-import { useAppDispatch } from "shared/model";
+import { useAppDispatch } from "shared/store";
 import { fetchUsersThunk } from "../../model/fetchUsersThunk";
 
 export const UsersBtn = () => {

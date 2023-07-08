@@ -1,1 +1,1 @@
-export { UsersBtn } from "./ui/UsersBtn/UsersBtn.tsx";
+export { UsersBtn } from "./ui/UsersBtn/UsersBtn";

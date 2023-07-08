@@ -1,19 +1,16 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { clearSession } from "entities/session";
-import { type ApiException, handleApiError } from "shared/api";
-import { removeUser } from "entities/user";
-import { logout } from "../api/endpoints";
+import { type HttpError, handleHttpError, userService } from "shared/api";
 
 export const logoutThunk = createAsyncThunk<
   void,
   void,
-  { dispatch: AppDispatch; rejectValue: ApiException }
->("user/logout", async (_, { dispatch, rejectWithValue }) => {
+  { dispatch: AppDispatch; rejectValue: HttpError }
+>("session/logout", async (_, { dispatch, rejectWithValue }) => {
   try {
-    await logout();
+    await userService.logout();
     dispatch(clearSession());
-    dispatch(removeUser());
   } catch (error) {
-    return rejectWithValue(handleApiError(error));
+    return rejectWithValue(handleHttpError(error));
   }
 });

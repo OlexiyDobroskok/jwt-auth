@@ -2,18 +2,18 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import {
   type HttpError,
   type ResponseMessage,
-  type ResetPasswordRequest,
   handleHttpError,
   userService,
+  type EditPasswordRequest,
 } from "shared/api";
 
-export const resetPasswordThunk = createAsyncThunk<
+export const editePasswordThunk = createAsyncThunk<
   ResponseMessage,
-  ResetPasswordRequest,
+  EditPasswordRequest,
   { rejectValue: HttpError }
->("user/resetPassword", async (resetData, { rejectWithValue }) => {
+>("user/changePassword", async (editData, { rejectWithValue }) => {
   try {
-    const response = await userService.resetPassword(resetData);
+    const response = await userService.editePassword(editData);
     return response.data;
   } catch (error) {
     return rejectWithValue(handleHttpError(error));

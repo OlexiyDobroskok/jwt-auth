@@ -1,9 +1,9 @@
 import { NavLink } from "react-router-dom";
-import { appRoutes } from "shared/lib";
 import clsx from "clsx";
 import classes from "./HeaderLayout.module.scss";
-import { useAppSelector } from "shared/model";
+import { useAppSelector } from "shared/store";
 import { selectIsAuthorized } from "entities/session";
+import { appRoutes } from "shared/config";
 
 export const HeaderLayout = () => {
   const isAuthorize = useAppSelector(selectIsAuthorized);

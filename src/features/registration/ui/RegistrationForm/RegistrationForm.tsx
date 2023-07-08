@@ -7,11 +7,11 @@ import {
 } from "../../model/registrationFormSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import classes from "./RegistrationForm.module.scss";
-import { useAppDispatch } from "shared/model";
-import { type ApiException } from "shared/api";
+import { useAppDispatch } from "shared/store";
+import { type HttpError } from "shared/api";
 import { useNavigate } from "react-router-dom";
 import { registrationThunk } from "../../model/registrationThunk";
-import { appRoutes } from "shared/lib";
+import { appRoutes } from "shared/config";
 
 export const RegistrationForm = () => {
   const {
@@ -37,17 +37,13 @@ export const RegistrationForm = () => {
     password,
   }) => {
     try {
-      const { id: userId } = await dispatch(
-        registrationThunk({ userName, email, password })
-      ).unwrap();
-      if (userId) {
-        navigate(appRoutes.PROFILE);
-      }
+      await dispatch(registrationThunk({ userName, email, password })).unwrap();
+      navigate(appRoutes.PROFILE);
     } catch (error) {
-      if ((error as ApiException).status === 409) {
+      if ((error as HttpError).status === 409) {
         setError(
           "email",
-          { type: "conflict", message: (error as ApiException).error },
+          { type: "conflict", message: (error as HttpError).message },
           { shouldFocus: true }
         );
       } else {

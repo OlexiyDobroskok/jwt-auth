@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-export const changePasswordFormSchema = z
+export const editPasswordFormSchema = z
   .object({
     password: z
       .string()
@@ -24,10 +24,10 @@ export const changePasswordFormSchema = z
     }
   );
 
-export const defaultValue: ChangePasswordFormSchema = {
+export const defaultValue: EditPasswordFormSchema = {
   password: "",
   newPassword: "",
   confirmNewPassword: "",
 };
 
-export type ChangePasswordFormSchema = z.infer<typeof changePasswordFormSchema>;
+export type EditPasswordFormSchema = z.infer<typeof editPasswordFormSchema>;
