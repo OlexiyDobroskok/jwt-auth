@@ -5,7 +5,7 @@ import { Provider as ReduxProvider } from "react-redux";
 import { PersistGate } from "redux-persist/integration/react";
 import { appRouter } from "./appRouter";
 import { appStore, persistor } from "./appStore";
-import { refreshThunk } from "features/authentication/refresh";
+import { refreshThunk } from "entities/session";
 
 const initApp = () => {
   persistor.subscribe(() => {

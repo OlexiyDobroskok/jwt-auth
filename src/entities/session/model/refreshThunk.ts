@@ -5,7 +5,7 @@ import {
   type SessionDto,
   userService,
 } from "shared/api";
-import { clearSession, createSession } from "entities/session";
+import { clearSession, createSession } from "./sessionSlice";
 
 export const refreshThunk = createAsyncThunk<
   SessionDto,

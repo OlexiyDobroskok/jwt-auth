@@ -5,6 +5,7 @@ export interface SessionState {
   isAuthorize: boolean;
   user?: UserDto;
   accessToken?: Token;
+  refreshTimerId?: number;
 }
 
 const initialState: SessionState = {
@@ -25,6 +26,12 @@ export const sessionSlice = createSlice({
       state.accessToken = undefined;
       state.isAuthorize = false;
     },
+    setRefreshTimerId: (state, { payload }: PayloadAction<number>) => {
+      state.refreshTimerId = payload;
+    },
+    clearRefreshTimerId: (state) => {
+      state.refreshTimerId = undefined;
+    },
   },
 });
 
@@ -32,4 +39,9 @@ export const selectIsAuthorized = (state: RootState) =>
   state.session.isAuthorize;
 export const selectUser = (state: RootState) => state.session.user;
 
-export const { createSession, clearSession } = sessionSlice.actions;
+export const {
+  createSession,
+  clearSession,
+  setRefreshTimerId,
+  clearRefreshTimerId,
+} = sessionSlice.actions;

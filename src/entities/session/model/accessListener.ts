@@ -1,8 +1,13 @@
 import { createListenerMiddleware } from "@reduxjs/toolkit";
 import { type AppStartListening } from "shared/store";
-import { clearSession, createSession } from "entities/session";
+import {
+  clearRefreshTimerId,
+  clearSession,
+  createSession,
+  setRefreshTimerId,
+} from "./sessionSlice";
 import { AxiosError } from "axios";
-import { refreshThunk } from "../../refresh";
+import { refreshThunk } from "./refreshThunk";
 import { type AccessAxiosRequestConfig } from "./types";
 import { baseApi } from "shared/api";
 
@@ -13,7 +18,18 @@ export const startAccessListening =
 
 startAccessListening({
   actionCreator: createSession,
-  effect: ({ payload }, { dispatch }) => {
+  effect: ({ payload }, { dispatch, getState }) => {
+    const { session } = getState();
+    if (session.refreshTimerId) {
+      window.clearTimeout(session.refreshTimerId);
+    }
+    const refreshTimeout = 14 * 60 * 1000;
+    const refreshTimerId = window.setTimeout(
+      () => dispatch(refreshThunk()),
+      refreshTimeout
+    );
+    dispatch(setRefreshTimerId(refreshTimerId));
+
     baseApi.interceptors.request.use((config) => {
       config.headers.Authorization = `Bearer ${payload.accessToken}`;
       return config;
@@ -48,7 +64,12 @@ startAccessListening({
 
 startAccessListening({
   actionCreator: clearSession,
-  effect: () => {
+  effect: (_, { getState, dispatch }) => {
+    const { session } = getState();
+    if (session.refreshTimerId) {
+      window.clearTimeout(session.refreshTimerId);
+      dispatch(clearRefreshTimerId());
+    }
     baseApi.interceptors.request.clear();
     baseApi.interceptors.response.clear();
   },

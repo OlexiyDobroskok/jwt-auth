@@ -11,7 +11,7 @@ import {
 } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 import { rootReducer } from "./rootReducer";
-import { accessListener } from "features/authentication/access-control";
+import { accessListener } from "entities/session";
 
 const persistConfig = {
   key: "root",
