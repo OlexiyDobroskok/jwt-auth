@@ -1,0 +1,33 @@
+@use 'shared/styles/placeholders';
+
+.formInput {}
+
+.label {
+
+}
+
+
+.labelText {
+  @extend %centeredContent;
+}
+
+.errorMessage {}
+
+
+.input {
+  @extend %centeredContent;
+}
+
+.icon {
+  width: 1.875rem;
+  height: 1.875rem;
+}
+
+.visibilityButton {
+  @extend %centeredContent;
+  padding: 5px;
+  svg {
+    width: 1.5625rem;
+    height: 1.5625rem;
+  }
+}

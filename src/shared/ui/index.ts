@@ -1,2 +1,2 @@
-export { Input, type InputTheme,inputTheme } from "./Input/Input";
-export { Layout } from "./Layout/Layout";
+export { Input } from "./input/Input";
+export { Layout } from "./layout/Layout";
