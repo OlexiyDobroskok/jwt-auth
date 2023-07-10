@@ -1,5 +1,5 @@
-import { Layout } from "shared/ui";
-import { HeaderLayout } from "widgets/HeaderLayout";
+import { Layout } from "shared/ui/layout";
+import { HeaderLayout } from "widgets/header";
 
 import "./styles/index.scss";
 
