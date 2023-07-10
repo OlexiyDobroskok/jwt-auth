@@ -5,21 +5,18 @@ export const editPasswordFormSchema = z
     password: z
       .string()
       .trim()
-      .min(6, { message: "password must be at least 6 characters" }),
+      .min(6, { message: "must be at least 6 characters" }),
     newPassword: z
       .string()
       .trim()
-      .min(6, { message: "password must be at least 6 characters" }),
-    confirmNewPassword: z
-      .string()
-      .trim()
-      .min(6, { message: "password must be at least 6 characters" }),
+      .min(6, { message: "must be at least 6 characters" }),
+    confirmNewPassword: z.string(),
   })
   .required()
   .refine(
     ({ newPassword, confirmNewPassword }) => newPassword === confirmNewPassword,
     {
-      message: "Passwords don't match",
+      message: "passwords don't match",
       path: ["confirmNewPassword"],
     }
   );

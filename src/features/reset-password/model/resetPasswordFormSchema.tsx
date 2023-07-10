@@ -2,7 +2,7 @@ import { z } from "zod";
 
 export const resetPasswordFormSchema = z
   .object({
-    email: z.string().email({ message: "email must be a valid" }),
+    email: z.string().email({ message: "must be a valid" }),
   })
   .required();
 
