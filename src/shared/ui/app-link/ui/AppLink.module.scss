@@ -1,0 +1,9 @@
+.link {
+  text-decoration: none;
+  color: var(--text-color);
+  transition: color .2s ease;
+
+  &:hover {
+    color:var(--accent-text-color)
+  }
+}

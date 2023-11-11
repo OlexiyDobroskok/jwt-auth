@@ -1,14 +1,14 @@
 import { AxiosRequestConfig } from "axios";
 
 import { baseApi } from "./baseApi";
-import {
-  type CreatePasswordRequest,
-  type EditPasswordRequest,
-  type LoginRequest,
-  type RegisterUserRequest,
-  type ResetPasswordRequest,
-  type ResponseMessage,
-  type SessionDto,
+import type {
+  CreatePasswordRequest,
+  EditPasswordRequest,
+  LoginRequest,
+  RegisterUserRequest,
+  ResetPasswordRequest,
+  ResponseMessage,
+  SessionDto,
 } from "./types";
 
 class UserService {

@@ -1,0 +1,87 @@
+@use 'shared/ui/styles/placeholders';
+
+.page {
+  display: flex;
+}
+
+.accForm {
+  width: 40vw;
+  opacity: 1;
+  visibility: visible;
+  transition: width 1.5s ease, opacity .7s ease-in-out;
+  overflow: hidden;
+}
+
+.visuallyHidden {
+  width: 0;
+  opacity: 0;
+}
+
+
+
+.form {
+  display: flex;
+  justify-content: center;
+  padding-block-end: 10px;
+}
+
+
+
+.formTitle{
+  margin-block-end: 20px;
+  padding-inline: 20px;
+  font-size: 24px;
+  white-space: nowrap;
+  text-transform: capitalize;
+  text-align: center;
+}
+
+.backdrop {
+  flex-grow: 1;
+  display: flex;
+  justify-content: center;
+  padding-top: 100px;
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' version='1.1' xmlns:xlink='http://www.w3.org/1999/xlink' xmlns:svgjs='http://svgjs.dev/svgjs' width='1440' height='250' preserveAspectRatio='none' viewBox='0 0 1440 250'%3e%3cg mask='url(%26quot%3b%23SvgjsMask1000%26quot%3b)' fill='none'%3e%3crect width='1440' height='250' x='0' y='0' fill='%230e2a47'%3e%3c/rect%3e%3cpath d='M44 250L294 0L351 0L101 250z' fill='url(%26quot%3b%23SvgjsLinearGradient1001%26quot%3b)'%3e%3c/path%3e%3cpath d='M247.60000000000002 250L497.6 0L829.1 0L579.1 250z' fill='url(%26quot%3b%23SvgjsLinearGradient1001%26quot%3b)'%3e%3c/path%3e%3cpath d='M507.20000000000005 250L757.2 0L1052.7 0L802.7 250z' fill='url(%26quot%3b%23SvgjsLinearGradient1001%26quot%3b)'%3e%3c/path%3e%3cpath d='M744.8000000000001 250L994.8000000000001 0L1146.3000000000002 0L896.3000000000001 250z' fill='url(%26quot%3b%23SvgjsLinearGradient1001%26quot%3b)'%3e%3c/path%3e%3cpath d='M1410 250L1160 0L923 0L1173 250z' fill='url(%26quot%3b%23SvgjsLinearGradient1002%26quot%3b)'%3e%3c/path%3e%3cpath d='M1164.4 250L914.4000000000001 0L663.9000000000001 0L913.9000000000001 250z' fill='url(%26quot%3b%23SvgjsLinearGradient1002%26quot%3b)'%3e%3c/path%3e%3cpath d='M959.8 250L709.8 0L513.3 0L763.3 250z' fill='url(%26quot%3b%23SvgjsLinearGradient1002%26quot%3b)'%3e%3c/path%3e%3cpath d='M704.1999999999999 250L454.19999999999993 0L224.69999999999993 0L474.69999999999993 250z' fill='url(%26quot%3b%23SvgjsLinearGradient1002%26quot%3b)'%3e%3c/path%3e%3cpath d='M1238.1174969831518 250L1440 48.11749698315168L1440 250z' fill='url(%26quot%3b%23SvgjsLinearGradient1001%26quot%3b)'%3e%3c/path%3e%3cpath d='M0 250L201.88250301684832 250L 0 48.11749698315168z' fill='url(%26quot%3b%23SvgjsLinearGradient1002%26quot%3b)'%3e%3c/path%3e%3c/g%3e%3cdefs%3e%3cmask id='SvgjsMask1000'%3e%3crect width='1440' height='250' fill='white'%3e%3c/rect%3e%3c/mask%3e%3clinearGradient x1='0%25' y1='100%25' x2='100%25' y2='0%25' id='SvgjsLinearGradient1001'%3e%3cstop stop-color='rgba(15%2c 70%2c 185%2c 0.2)' offset='0'%3e%3c/stop%3e%3cstop stop-opacity='0' stop-color='rgba(15%2c 70%2c 185%2c 0.2)' offset='0.66'%3e%3c/stop%3e%3c/linearGradient%3e%3clinearGradient x1='100%25' y1='100%25' x2='0%25' y2='0%25' id='SvgjsLinearGradient1002'%3e%3cstop stop-color='rgba(15%2c 70%2c 185%2c 0.2)' offset='0'%3e%3c/stop%3e%3cstop stop-opacity='0' stop-color='rgba(15%2c 70%2c 185%2c 0.2)' offset='0.66'%3e%3c/stop%3e%3c/linearGradient%3e%3c/defs%3e%3c/svg%3e");
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.changeButton{
+  position: relative;
+  @extend %centeredContent;
+  width: 150px;
+  height: 30px;
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--text-color);
+  text-transform: capitalize;
+  cursor: pointer;
+  border: none;
+  border-radius: 5px;
+  background-color: var(--accent-color);
+  filter:drop-shadow(4px 3px 10px var(--primary-shadow-color));
+
+  &:before {
+    position: absolute;
+    content: '';
+    bottom: -9px;
+    width: 2px;
+    left: 4px;
+    border-left: 70px solid transparent;
+    border-right: 70px solid transparent;
+    border-top: 9px solid var(--accent-color);
+    z-index: 10;
+  }
+
+  &:after {
+    position: absolute;
+    content: '';
+    bottom: -12px;
+    width: 4px;
+    left: 4px;
+    border-left: 69px solid transparent;
+    border-right: 69px solid transparent;
+    border-top: 12px solid #2d8294;
+  }
+}
+

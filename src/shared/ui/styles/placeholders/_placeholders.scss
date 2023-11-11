@@ -4,3 +4,31 @@
   align-items: center;
 }
 
+%centeredColumnContent {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
+}
+
+%primaryButton {
+  padding: 0.625rem 1.25rem;
+  cursor:pointer;
+  border: none;
+  border-radius: 0.3125rem;
+
+  &:active {
+    transform: scale(.99);
+  }
+}
+
+%visuallyHidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  border: 0;
+  padding: 0;
+  clip: rect(0 0 0 0);
+  overflow: hidden;
+}

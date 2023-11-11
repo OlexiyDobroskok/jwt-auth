@@ -1,6 +1,8 @@
 import { ReactNode } from "react";
 import { Outlet } from "react-router-dom";
 
+import classes from "./Layout.module.scss";
+
 interface LayoutProps {
   headerSlot?: ReactNode;
   footerSlot?: ReactNode;
@@ -8,7 +10,7 @@ interface LayoutProps {
 
 export const Layout = ({ headerSlot, footerSlot }: LayoutProps) => {
   return (
-    <div>
+    <div className={classes.appContainer}>
       {headerSlot}
       <main>
         <Outlet />

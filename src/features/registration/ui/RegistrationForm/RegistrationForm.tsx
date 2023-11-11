@@ -2,10 +2,12 @@ import { type SubmitHandler, useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { zodResolver } from "@hookform/resolvers/zod";
 
-import { type HttpError } from "shared/api";
+import type { HttpError } from "shared/api";
 import { appRoutes } from "shared/config";
 import { useAppDispatch } from "shared/store";
-import { Input } from "shared/ui";
+import { AccForm } from "shared/ui/acc-form";
+import { accIcons } from "shared/ui/icon";
+import { Input } from "shared/ui/input";
 
 import {
   defaultValues,
@@ -13,8 +15,6 @@ import {
   registrationFormSchema,
 } from "../../model/registrationFormSchema";
 import { registrationThunk } from "../../model/registrationThunk";
-
-import classes from "./RegistrationForm.module.scss";
 
 export const RegistrationForm = () => {
   const {
@@ -31,7 +31,6 @@ export const RegistrationForm = () => {
   });
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const serverErrorType = formState.errors.root?.serverError.type;
   const serverErrorMessage = formState.errors.root?.serverError.message;
 
   const onSubmit: SubmitHandler<RegistrationFormSchema> = async ({
@@ -61,14 +60,16 @@ export const RegistrationForm = () => {
   };
 
   return (
-    <form
-      className={classes.registrationForm}
+    <AccForm
       onSubmit={handleSubmit(onSubmit)}
+      serverErrorMessage={serverErrorMessage}
+      submitButtonName="sign up"
     >
       <Input
         type="text"
         fieldName="userName"
         labelText="username"
+        icon={`${accIcons}#user`}
         register={register}
         formState={formState}
         getFieldState={getFieldState}
@@ -77,6 +78,7 @@ export const RegistrationForm = () => {
         type="email"
         fieldName="email"
         labelText="email"
+        icon={`${accIcons}#email`}
         register={register}
         formState={formState}
         getFieldState={getFieldState}
@@ -85,6 +87,7 @@ export const RegistrationForm = () => {
         type="password"
         fieldName="password"
         labelText="password"
+        icon={`${accIcons}#password`}
         register={register}
         formState={formState}
         getFieldState={getFieldState}
@@ -93,13 +96,11 @@ export const RegistrationForm = () => {
         type="password"
         fieldName="confirmPassword"
         labelText="confirm password"
+        icon={`${accIcons}#password`}
         register={register}
         formState={formState}
         getFieldState={getFieldState}
       />
-      {serverErrorType === "unknown" ||
-        (serverErrorType === "conflict" && <p>{serverErrorMessage}</p>)}
-      <button>submit</button>
-    </form>
+    </AccForm>
   );
 };

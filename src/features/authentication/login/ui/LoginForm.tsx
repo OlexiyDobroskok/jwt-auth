@@ -5,7 +5,10 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { type HttpError } from "shared/api";
 import { appRoutes } from "shared/config";
 import { useAppDispatch } from "shared/store";
-import { Input } from "shared/ui";
+import { AccForm } from "shared/ui/acc-form";
+import { AppLink } from "shared/ui/app-link";
+import { accIcons } from "shared/ui/icon";
+import { Input } from "shared/ui/input";
 
 import {
   defaultValues,
@@ -13,6 +16,8 @@ import {
   loginFormSchema,
 } from "../model/loginFormSchema";
 import { loginThunk } from "../model/loginThunk";
+
+import classes from "./LoginForm.module.scss";
 
 export const LoginForm = () => {
   const {
@@ -29,8 +34,8 @@ export const LoginForm = () => {
   });
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const serverErrorType = formState.errors.root?.serverError.type;
   const serverErrorMessage = formState.errors.root?.serverError.message;
+
   const onSubmit: SubmitHandler<LoginFormSchema> = async (loginData) => {
     try {
       await dispatch(loginThunk(loginData)).unwrap();
@@ -52,12 +57,24 @@ export const LoginForm = () => {
     }
   };
 
+  const resetPassBlock = (
+    <div className={classes.resetPass}>
+      <AppLink to={appRoutes.RESET_PASS}>Forgot Password?</AppLink>
+    </div>
+  );
+
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
+    <AccForm
+      onSubmit={handleSubmit(onSubmit)}
+      serverErrorMessage={serverErrorMessage}
+      linkSlot={resetPassBlock}
+      submitButtonName="sign in"
+    >
       <Input
         type="email"
         fieldName="email"
         labelText="email"
+        icon={`${accIcons}#email`}
         getFieldState={getFieldState}
         formState={formState}
         register={register}
@@ -66,13 +83,11 @@ export const LoginForm = () => {
         type="password"
         fieldName="password"
         labelText="password"
+        icon={`${accIcons}#password`}
         getFieldState={getFieldState}
         formState={formState}
         register={register}
       />
-      {serverErrorType === "unknown" ||
-        (serverErrorType === "unauthorized" && <p>{serverErrorMessage}</p>)}
-      <button>submit</button>
-    </form>
+    </AccForm>
   );
 };

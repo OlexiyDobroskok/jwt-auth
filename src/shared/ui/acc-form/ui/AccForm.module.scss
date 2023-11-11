@@ -1,0 +1,45 @@
+@use 'shared/ui/styles/placeholders';
+
+.form, .formFields,.submitField {
+  display: inline-flex;
+  flex-direction: column;
+}
+
+.formFields {
+  position: relative;
+  gap: 1.25rem;
+}
+
+.errorMessage, .successfulMessage {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translate(-50%, 120%);
+  font-size: 18px;
+}
+
+.errorMessage {
+  color:var(--error-color);
+}
+
+.successfulMessage {
+  color:var(--success-color);
+}
+
+.submitButton {
+  @extend %primaryButton;
+  font-size: 1.125rem;
+  text-transform: capitalize;
+  color:var(--text-color);
+  background-color: var(--accent-color);
+  box-shadow: 0.1875rem 0.25rem 0.3125rem var(--primary-shadow-color);
+
+  &:active {
+    box-shadow: 0.125rem 0.1875rem 0.25rem var(--primary-shadow-color);
+  }
+}
+
+.submitField {
+  margin-block-start: 35px;
+  gap:10px;
+}

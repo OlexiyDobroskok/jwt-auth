@@ -4,7 +4,9 @@ import { zodResolver } from "@hookform/resolvers/zod";
 
 import { type HttpError } from "shared/api";
 import { useAppDispatch } from "shared/store";
-import { Input } from "shared/ui";
+import { AccForm } from "shared/ui/acc-form";
+import { accIcons } from "shared/ui/icon";
+import { Input } from "shared/ui/input";
 
 import { editePasswordThunk } from "../model/editePasswordThunk";
 import {
@@ -22,7 +24,6 @@ export const ChangePasswordForm = () => {
       resolver: zodResolver(editPasswordFormSchema),
     });
   const dispatch = useAppDispatch();
-  const serverErrorType = formState.errors.root?.serverError.type;
   const serverErrorMessage = formState.errors.root?.serverError.message;
 
   const onSubmit: SubmitHandler<EditPasswordFormSchema> = async ({
@@ -54,11 +55,17 @@ export const ChangePasswordForm = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
+    <AccForm
+      onSubmit={handleSubmit(onSubmit)}
+      serverErrorMessage={serverErrorMessage}
+      successfulMessage={successfulMessage}
+      submitButtonName="change password"
+    >
       <Input
         fieldName="password"
         labelText="password"
         type="password"
+        icon={`${accIcons}#password`}
         getFieldState={getFieldState}
         formState={formState}
         register={register}
@@ -67,6 +74,7 @@ export const ChangePasswordForm = () => {
         fieldName="newPassword"
         labelText="new password"
         type="password"
+        icon={`${accIcons}#password`}
         getFieldState={getFieldState}
         formState={formState}
         register={register}
@@ -75,14 +83,11 @@ export const ChangePasswordForm = () => {
         fieldName="confirmNewPassword"
         labelText="confirm new password"
         type="password"
+        icon={`${accIcons}#password`}
         getFieldState={getFieldState}
         formState={formState}
         register={register}
       />
-      {serverErrorType === "unknown" ||
-        (serverErrorType === "unauthorized" && <p>{serverErrorMessage}</p>)}
-      {successfulMessage && <p>{successfulMessage}</p>}
-      <button>submit password</button>
-    </form>
+    </AccForm>
   );
 };

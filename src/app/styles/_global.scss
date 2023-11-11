@@ -1,3 +1,18 @@
+:root {
+  --primary-color:#3a3d4d;
+  --primary-shadow-color: #242731;
+  --secondary-color:#43475a;
+
+  --text-color:#fff;
+  --border-color: #4c5062;
+
+  --accent-color: #3dabc2;
+  --accent-text-color:#e4b940;
+
+  --error-color: #ef3c3c;
+  --success-color: #035903;
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -5,6 +20,6 @@
 }
 
 body {
-  color: #fff;
-  background-color: #4b7bbb;
+  color: var(--text-color);
+  background-color: var(--primary-color);
 }

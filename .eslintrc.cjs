@@ -12,7 +12,7 @@ module.exports = {
     "simple-import-sort/imports": ["error",{
       "groups": [
         // Packages `react` related packages come first.
-        ["^react", "^@?\\w"],
+        ["^(react|next)", "^@?\\w"],
         // Internal packages.
         ["^(shared|entities|features|widgets|pages|app)(/.*|$)"],
         // Side effect imports.

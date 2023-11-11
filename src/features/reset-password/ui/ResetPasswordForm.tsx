@@ -4,7 +4,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 
 import { type HttpError } from "shared/api";
 import { useAppDispatch } from "shared/store";
-import { Input } from "shared/ui";
+import { Input } from "shared/ui/input";
 
 import {
   defaultValues,
